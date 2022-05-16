@@ -1,16 +1,20 @@
 <template>
-  <nav class="flex border-b border-b-green-700">
-    <div class="flex-1 text-left hidden md:block">Médiathèque</div>
-    <div class="flex-1 flex justify-between text-left">
-      <router-link to="/">Accueil</router-link>
-      <div>
-        <router-link to="/register" class="mr-12">Inscription</router-link>
-        <router-link to="/login">Connexion</router-link>
-      </div>
-    </div>
-  </nav>
+  <Nav />
   <router-view/>
+  <Footer />
 </template>
+
+<script>
+import Nav from './components/Shared/Nav.vue'
+import Footer from './components/Shared/Footer.vue'
+
+export default {
+  components: {
+    Nav,
+    Footer
+  }
+}
+</script>
 
 <style>
 #app {
@@ -19,6 +23,10 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+body {
+  margin-bottom: 75px;
 }
 
 nav {
