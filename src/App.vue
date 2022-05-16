@@ -1,17 +1,26 @@
 <template>
-  <Nav />
+  <PublicNav v-if="!isLoggedIn"/>
+  <ProtectedNav v-else />
   <router-view/>
   <Footer />
 </template>
 
 <script>
-import Nav from './components/Shared/Nav.vue'
+import PublicNav from './components/Shared/PublicNav.vue'
+import ProtectedNav from './components/Shared/ProtectedNav.vue'
 import Footer from './components/Shared/Footer.vue'
+import { ref } from '@vue/reactivity'
 
 export default {
   components: {
-    Nav,
+    PublicNav,
+    ProtectedNav,
     Footer
+  },
+  setup() {
+    const isLoggedIn = ref(true)
+
+    return { isLoggedIn }
   }
 }
 </script>
