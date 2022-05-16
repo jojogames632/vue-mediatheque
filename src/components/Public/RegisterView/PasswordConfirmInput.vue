@@ -6,7 +6,7 @@
 							'border-l-green-500': !passwordConfirm.error && passwordConfirm.dirty }"
 		name="password_confirm"
 		v-model="passwordConfirm.value"
-		placeholder="Confirm password" 
+		placeholder="Confirmation du mot de passe" 
 		@input="passwordConfirmVerif" />
 	<div v-if="passwordConfirm.error" class="text-red-500 text-left p-3 pt-0">
 		{{ passwordConfirm.error }}

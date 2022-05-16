@@ -6,7 +6,7 @@
 						'border-l-green-500': !password.error && password.dirty }"
 	name="password"
 	v-model="password.value"
-	placeholder="Password" 
+	placeholder="Mot de passe" 
 	@input="passwordVerif" />
 	<div v-if="password.error" class="text-red-500 text-left p-3 pt-0">
 		{{ password.error }}

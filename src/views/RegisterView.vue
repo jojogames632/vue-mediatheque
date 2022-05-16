@@ -2,19 +2,19 @@
   <div class="bg-grey-lighter">
 		<div class="container max-w-sm mx-auto flex flex-col items-center justify-center px-2">
 			<form @submit.prevent="submit" class="bg-white px-6 py-8 rounded shadow-md w-96">
-				<h1 class="mb-8 text-3xl text-center">Sign up</h1>
+				<h1 class="mb-8 text-3xl text-center">Inscription</h1>
 
 				<EmailInput :email="email" :emailVerif="emailVerif" />
 				<PasswordInput :password="password" :passwordVerif="passwordVerif" />
 				<PasswordConfirmInput :passwordConfirm="passwordConfirm" :passwordConfirmVerif="passwordConfirmVerif" />
 
-				<SubmitButton :isFormValid="isFormValid" />
+				<SubmitButton :isFormValid="isFormValid" :label="'Créer le compte'" />
 
 			</form>
 
-			<div class="mt-6">Already have an account? 
-				<router-link :to="{ name: 'home' }" class="no-underline border-b border-green-500 text-green-500">
-						Log in
+			<div class="mt-6">Déjà un compte ?
+				<router-link :to="{ name: 'login' }" class="no-underline border-b border-green-500 text-green-500">
+						Connexion
 				</router-link>.
 			</div>
 			
@@ -25,10 +25,10 @@
 <script>
 import { computed, ref } from 'vue'
 import router from '@/router'
-import EmailInput from '../components/RegisterView/EmailInput.vue'
-import PasswordInput from '../components/RegisterView/PasswordInput.vue'
-import PasswordConfirmInput from '../components/RegisterView/PasswordConfirmInput.vue'
-import SubmitButton from '../components/RegisterView/SubmitButton.vue'
+import EmailInput from '../components/Shared/EmailInput.vue'
+import PasswordInput from '../components/Shared/PasswordInput.vue'
+import PasswordConfirmInput from '../components/Public/RegisterView/PasswordConfirmInput.vue'
+import SubmitButton from '../components/Shared/SubmitButton.vue'
 
 export default {
 	name: "Login",
