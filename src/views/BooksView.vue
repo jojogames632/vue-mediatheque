@@ -1,9 +1,9 @@
 <template>
 	<div class="md:flex">
-		<div class="w-[100vw] md:w-[35vw] lg:w-[22vw] xl:w-[16vw]">
+		<div class="w-[100vw] md:w-[27vw] lg:w-[22vw] xl:w-[16vw]">
 			<SideNav />
 		</div>
-		<div class="md:w-[65vw] lg:w-[78vw]">
+		<div class="md:w-[73vw] lg:w-[78vw]">
 			<input
 				type="search"
 				placeholder="Rechercher un livre..."
@@ -11,19 +11,21 @@
 				v-model="search"
 				/>
 			
-			<div class="grid grid-cols-3 md:grid-cols-1 text-sm mt-6">
-				<div 
-					class="mb-4 p-2 rounded"
-					v-for="(type, index) in types" 
-					:class="{ 'bg-lime-200': currentType === type }"
-					:key="index" 
-					@click="selectType(type)">
-					{{ type }}
+			<div class="lg:flex justify-between">
+				<div class="grid grid-cols-3 lg:grid-cols-1 gap-x-6 text-sm mt-6 max-h-60 m-2 xl:m-8">
+					<div
+						class="mb-4 p-2 rounded cursor-pointer"
+						v-for="(type, index) in types" 
+						:class="{ 'bg-lime-200': currentType === type }"
+						:key="index" 
+						@click="selectType(type)">
+						{{ type }}
+					</div>
 				</div>
-			</div>
 
-			<div class="grid grid-cols-1 md:grid-cols-2">
-				<Book v-for="book in filteredBooks" :key="book.id" :book="book" />
+				<div class="grid grid-cols-1 lg:grid-cols-2">
+					<Book v-for="book in filteredBooks" :key="book.id" :book="book" />
+				</div>
 			</div>
 
 		</div>
@@ -45,11 +47,11 @@ export default {
 
 		const books = ref([
 			{id: 1, title: 'Pouvoir illimité', author: 'Anthony Robbins', pageNumber: 512, type: 'Développement personnel', image: 'pouvoir-illimite.jpg'},
-			{id: 1, title: 'Pouvoir illimité', author: 'Anthony Robbins', pageNumber: 512, type: 'Spiritualité', image: 'pouvoir-illimite.jpg'},
-			{id: 1, title: 'Pouvoir illimité', author: 'Anthony Robbins', pageNumber: 512, type: 'Développement personnel', image: 'pouvoir-illimite.jpg'},
-			{id: 1, title: 'Pouvoir illimité', author: 'Anthony Robbins', pageNumber: 512, type: 'Développement personnel', image: 'pouvoir-illimite.jpg'},
-			{id: 1, title: 'Pouvoir illimité', author: 'Anthony Robbins', pageNumber: 512, type: 'Productivité', image: 'pouvoir-illimite.jpg'},
-			{id: 1, title: 'Pouvoir illimité', author: 'Anthony Robbins', pageNumber: 512, type: 'Productivité', image: 'pouvoir-illimite.jpg'},
+			{id: 2, title: 'Pouvoir illimité', author: 'Anthony Robbins', pageNumber: 512, type: 'Spiritualité', image: 'pouvoir-illimite.jpg'},
+			{id: 3, title: 'Pouvoir illimité', author: 'Anthony Robbins', pageNumber: 512, type: 'Développement personnel', image: 'pouvoir-illimite.jpg'},
+			{id: 4, title: 'Pouvoir illimité', author: 'Anthony Robbins', pageNumber: 512, type: 'Développement personnel', image: 'pouvoir-illimite.jpg'},
+			{id: 5, title: 'Pouvoir illimité', author: 'Anthony Robbins', pageNumber: 512, type: 'Productivité', image: 'pouvoir-illimite.jpg'},
+			{id: 6, title: 'Pouvoir illimité', author: 'Anthony Robbins', pageNumber: 512, type: 'Productivité', image: 'pouvoir-illimite.jpg'},
 		])
 		const search = ref('')
 		const currentType = ref('')
