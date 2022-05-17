@@ -16,8 +16,7 @@
 						step="0.1"
 						min="0"
 						max="5"
-						placeholder="Évaluez ce livre..."
-						class="border mr-3" 
+						class="border mr-3 bg-red-300" 
 						v-model="rating" />
 					<span>{{ rating }}</span>
 					<button 

@@ -1,9 +1,9 @@
 <template>
-	<div class="md:flex">
-		<div class="w-[100vw] md:w-[27vw] lg:w-[22vw] xl:w-[16vw]">
-			<SideNav />
-		</div>
-		<div class="md:w-[73vw] lg:w-[78vw]">
+	  <div class="md:flex">
+    <div v-if="$store.state.isSideNavOpen" class="w-[100vw] md:w-[27vw] lg:w-[22vw] xl:w-[16vw]">
+      <SideNav />
+    </div>
+		<div class="md:w-[73vw] lg:w-[78vw] xl:w-[84vw]">
 			<input
 				type="search"
 				placeholder="Rechercher un livre..."
