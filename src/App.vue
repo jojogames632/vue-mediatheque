@@ -35,7 +35,7 @@ export default {
 }
 
 body {
-  margin-bottom: 75px;
+  margin-bottom: 85px;
 }
 
 nav {
