@@ -15,7 +15,9 @@
 				<TypeFilters :currentType="currentType" @type-selected="selectType"/>
 
 				<div class="grid grid-cols-1 lg:grid-cols-2">
-					<Book v-for="book in filteredBooks" :key="book.id" :book="book" />
+					<transition-group name="list">
+						<Book v-for="book in filteredBooks" :key="book.id" :book="book" />
+					</transition-group>
 				</div>
 			</div>
 
@@ -87,5 +89,11 @@ export default {
 </script>
 
 <style>
-
+	.list-enter-active {
+		transition: all 0.4s ease;
+	}
+	.list-enter-from {
+		opacity: 0;
+		transform: translateX(30px);
+	}
 </style>

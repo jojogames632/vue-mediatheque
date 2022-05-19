@@ -1,6 +1,5 @@
 <template>
-  <PublicNav v-if="!isLoggedIn"/>
-  <ProtectedNav v-else />
+  <component :is="componentName"></component>
   <router-view/>
   <Footer />
 </template>
@@ -10,6 +9,7 @@ import PublicNav from './components/Shared/PublicNav.vue'
 import ProtectedNav from './components/Shared/ProtectedNav.vue'
 import Footer from './components/Shared/Footer.vue'
 import { ref } from '@vue/reactivity'
+import { computed } from '@vue/runtime-core'
 
 export default {
   components: {
@@ -19,8 +19,11 @@ export default {
   },
   setup() {
     const isLoggedIn = ref(true)
+    const componentName = computed(() => {
+      return isLoggedIn.value ? ProtectedNav : PublicNav
+    })
 
-    return { isLoggedIn }
+    return { isLoggedIn, componentName }
   }
 }
 </script>

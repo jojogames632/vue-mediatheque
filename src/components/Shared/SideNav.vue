@@ -1,5 +1,5 @@
 <template>
-	<div v-if="$store.state.isSideNavOpen" class="md:border-r">
+	<div class="md:border-r">
 		<div class="h-96 max-h-48 md:max-h-[16rem] book-background bg-cover bg-center"></div>
 		<div>
 			<router-link to="/" class="flex items-center text-lg font-bold p-3 border-b hover:bg-lime-300">
