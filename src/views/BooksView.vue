@@ -12,16 +12,7 @@
 				/>
 			
 			<div class="lg:flex justify-between">
-				<div class="grid grid-cols-3 lg:grid-cols-1 gap-x-6 text-sm mt-6 max-h-60 m-2 xl:m-8">
-					<div
-						class="mb-4 p-2 rounded cursor-pointer"
-						v-for="(type, index) in types" 
-						:class="{ 'bg-lime-200': currentType === type }"
-						:key="index" 
-						@click="selectType(type)">
-						{{ type }}
-					</div>
-				</div>
+				<TypeFilters :currentType="currentType" @type-selected="selectType"/>
 
 				<div class="grid grid-cols-1 lg:grid-cols-2">
 					<Book v-for="book in filteredBooks" :key="book.id" :book="book" />
@@ -34,14 +25,16 @@
 
 <script>
 import { ref } from '@vue/reactivity'
+import { computed } from '@vue/runtime-core'
 import SideNav from '../components/Shared/SideNav.vue'
 import Book from '../components/Shared/Book.vue'
-import { computed } from '@vue/runtime-core'
+import TypeFilters from '../components/Shared/TypeFilters.vue'
 
 export default {
 	components: {
 		SideNav,
-		Book
+		Book,
+		TypeFilters
 	},
 	computed: {
     page_width() {
@@ -60,13 +53,6 @@ export default {
 		])
 		const search = ref('')
 		const currentType = ref('')
-		const types = ref([
-			'Développement personnel',
-			'Spiritualité',
-			'Alimentation',
-			'Finance',
-			'Productivité'
-		])
 
 		const filteredBooks = computed(() => {
 			if (currentType.value === '') {
@@ -95,7 +81,7 @@ export default {
 			currentType.value = type === currentType.value ? '' : type
 		}
 
-		return { search, types, currentType, books, filteredBooks, selectType }
+		return { search, currentType, books, filteredBooks, selectType }
 	}
 }
 </script>
