@@ -2,8 +2,7 @@
 	<input 
 	type="text"
 	class="block border border-grey-light w-full p-3 rounded mb-4 border-l-8"
-	:class="{	'border-l-red-500': email.error,
-						'border-l-green-500': !email.error && email.dirty }"
+	:class="border_signal"
 	name="email"
 	v-model="email.value"
 	placeholder="Email" 
@@ -16,9 +15,12 @@
 <script>
 export default {
 	props: ['email', 'emailVerif'],
-	setup() {
-
-	}	
+	computed: {
+		border_signal() {
+			return {	'border-l-red-500': this.email.error,
+						'border-l-green-500': !this.email.error && this.email.dirty }
+		}
+	}
 }
 </script>
 

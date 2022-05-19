@@ -3,7 +3,7 @@
     <div v-if="$store.state.isSideNavOpen" class="w-[100vw] md:w-[27vw] lg:w-[22vw] xl:w-[16vw]">
       <SideNav />
     </div>
-    <div :class="{ 'md:w-[73vw] lg:w-[78vw] xl:w-[84vw]':  $store.state.isSideNavOpen, 'w-[100vw]': !$store.state.isSideNavOpen }">
+    <div :class="page_width">
       <img src="../assets/img/book-image.jpg" alt="book" class="max-h-[40vh] w-full object-cover mb-12" />
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-0">
         <Card :title="'Découvrez des livres inspirants'" :description="'Explorez notre médiathèque remplie de dizaines de livres de genres différents qui sauront satisfaire vos désirs de savoir.'">
@@ -29,6 +29,11 @@ export default {
   components: {
     Card,
     SideNav
+  },
+  computed: {
+    page_width() {
+      return { 'md:w-[73vw] lg:w-[78vw] xl:w-[84vw]':  this.$store.state.isSideNavOpen, 'w-[100vw]': !this.$store.state.isSideNavOpen }
+    }
   }
 }
 </script>

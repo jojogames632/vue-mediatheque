@@ -2,8 +2,7 @@
 	<input 
 	type="password"
 	class="block border border-grey-light w-full p-3 rounded mb-4 border-l-8"
-	:class="{ 'border-l-red-500': password.error,
-						'border-l-green-500': !password.error && password.dirty }"
+	:class="border_signal"
 	name="password"
 	v-model="password.value"
 	placeholder="Mot de passe" 
@@ -15,6 +14,12 @@
 
 <script>
 export default {
-	props: ['password', 'passwordVerif']
+	props: ['password', 'passwordVerif'],
+	computed: {
+		border_signal() {
+			return { 'border-l-red-500': this.password.error,
+						'border-l-green-500': !this.password.error && this.password.dirty }
+		}
+	}
 }
 </script>

@@ -21,7 +21,17 @@ const routes = [
     path: '/api/books',
     name: 'books',
     component: () => import(/* webpackChunkName: "login" */ '../views/BooksView.vue')
-  }
+  },
+  {
+    path: '/api/add-book',
+    name: 'add-book',
+    component: () => import(/* webpackChunkName: "login" */ '../views/AddBookView.vue')
+  },
+  {
+    path: '/api/profil',
+    name: 'profil',
+    component: () => import(/* webpackChunkName: "login" */ '../views/ProfilView.vue')
+  },
 ]
 
 const router = createRouter({

@@ -3,7 +3,7 @@
     <div v-if="$store.state.isSideNavOpen" class="w-[100vw] md:w-[27vw] lg:w-[22vw] xl:w-[16vw]">
       <SideNav />
     </div>
-		<div class="md:w-[73vw] lg:w-[78vw] xl:w-[84vw]">
+		<div :class="page_width">
 			<input
 				type="search"
 				placeholder="Rechercher un livre..."
@@ -43,6 +43,11 @@ export default {
 		SideNav,
 		Book
 	},
+	computed: {
+    page_width() {
+      return { 'md:w-[73vw] lg:w-[78vw] xl:w-[84vw]':  this.$store.state.isSideNavOpen, 'w-[100vw]': !this.$store.state.isSideNavOpen }
+    }
+  },
 	setup() {
 
 		const books = ref([

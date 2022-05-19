@@ -3,13 +3,18 @@
 		type="submit"
 		:disabled="!isFormValid"
 		class="w-full text-center py-3 rounded text-white focus:outline-none my-1"
-		:class="{ 'bg-gray-300': !isFormValid, 'bg-green-500': isFormValid, 'hover:bg-green-700': isFormValid }"
+		:class="valid_button"
 	>{{ label }}</button>
 </template>
 
 <script>
 export default {
-	props: ['isFormValid', 'label']
+	props: ['isFormValid', 'label'],
+	computed: {
+		valid_button() {
+			return { 'bg-gray-300': !this.isFormValid, 'bg-green-500': this.isFormValid, 'hover:bg-green-700': this.isFormValid }
+		}
+	}
 }
 </script>
 

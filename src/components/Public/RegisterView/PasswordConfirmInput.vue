@@ -2,8 +2,7 @@
 	<input 
 		type="password"
 		class="block border border-grey-light w-full p-3 rounded mb-4 border-l-8"
-		:class="{ 'border-l-red-500': passwordConfirm.error,
-							'border-l-green-500': !passwordConfirm.error && passwordConfirm.dirty }"
+		:class="border_signal"
 		name="password_confirm"
 		v-model="passwordConfirm.value"
 		placeholder="Confirmation du mot de passe" 
@@ -15,7 +14,13 @@
 
 <script>
 export default {
-	props: ['passwordConfirm', 'passwordConfirmVerif']
+	props: ['passwordConfirm', 'passwordConfirmVerif'],
+	computed: {
+		border_signal() {
+			return {'border-l-red-500': this.passwordConfirm.error,
+							'border-l-green-500': !this.passwordConfirm.error && this.passwordConfirm.dirty }
+		}
+	}
 }
 </script>
 
