@@ -14,7 +14,10 @@
 
 <script>
 export default {
-	props: ['title', 'titleVerif'],
+	props: {
+		title: Object, 
+		titleVerif: Function
+	},
 	computed: {
 		border_signal() {
 			return {	'border-l-red-500': this.title.error,

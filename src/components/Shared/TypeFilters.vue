@@ -13,7 +13,9 @@
 
 <script>
 export default {
-	props: ['currentType'],
+	props: {
+		currentType: String
+	},
 	data() {
 		return {
 			types: [

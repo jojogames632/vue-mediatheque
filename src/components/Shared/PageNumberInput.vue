@@ -14,7 +14,10 @@
 
 <script>
 export default {
-	props: ['pageNumber', 'pageNumberVerif'],
+	props: {
+		pageNumber: Object, 
+		pageNumberVerif: Function
+	},
 	computed: {
 		border_signal() {
 			return {	'border-l-red-500': this.pageNumber.error,

@@ -1,5 +1,5 @@
 <template>
-	<div class="bg-grey-lighter">
+	<div class="mt-12">
 		<div class="container max-w-sm mx-auto flex flex-col items-center justify-center px-2">
 			<form @submit.prevent="submit" class="bg-white px-6 py-8 rounded shadow-md w-96">
 				<h1 class="mb-8 text-3xl text-center">Connexion</h1>

@@ -11,7 +11,9 @@
 <script>
 import { ref } from '@vue/reactivity'
 export default {
-	props: ['type'],
+	props: {
+		type: Object,
+	},
 	setup() {
 		const types = ref([
 			'Développement personnel',

@@ -14,7 +14,10 @@
 
 <script>
 export default {
-	props: ['email', 'emailVerif'],
+	props: {
+		email: Object, 
+		emailVerif: Function
+	},
 	computed: {
 		border_signal() {
 			return {	'border-l-red-500': this.email.error,

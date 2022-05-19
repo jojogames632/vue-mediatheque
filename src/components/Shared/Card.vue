@@ -9,7 +9,10 @@
 <script>
 
 export default {
-	props: ['title', 'image', 'description']
+	props: {
+		title: String, 
+		description: String
+	}
 }
 </script>
 

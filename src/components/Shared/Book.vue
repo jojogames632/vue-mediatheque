@@ -24,7 +24,9 @@ import { ref } from '@vue/reactivity'
 import Rate from './Rate.vue'
 
 export default ({
-	props: ['book'],
+	props: {
+		book: Object
+	},
 	components: {
 		Rate
 	},

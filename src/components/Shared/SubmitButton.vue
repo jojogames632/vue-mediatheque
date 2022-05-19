@@ -9,7 +9,10 @@
 
 <script>
 export default {
-	props: ['isFormValid', 'label'],
+	props: {
+		isFormValid: Boolean, 
+		label: String
+	},
 	computed: {
 		valid_button() {
 			return { 'bg-gray-300': !this.isFormValid, 'bg-green-500': this.isFormValid, 'hover:bg-green-700': this.isFormValid }

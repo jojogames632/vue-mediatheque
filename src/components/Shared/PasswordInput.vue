@@ -14,7 +14,10 @@
 
 <script>
 export default {
-	props: ['password', 'passwordVerif'],
+	props: {
+		password: Object, 
+		passwordVerif: Function
+	},
 	computed: {
 		border_signal() {
 			return { 'border-l-red-500': this.password.error,

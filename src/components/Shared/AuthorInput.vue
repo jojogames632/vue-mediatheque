@@ -14,7 +14,10 @@
 
 <script>
 export default {
-	props: ['author', 'authorVerif'],
+	props: {
+		author: Object, 
+		authorVerif: Function
+	},
 	computed: {
 		border_signal() {
 			return { 'border-l-red-500': this.author.error,
