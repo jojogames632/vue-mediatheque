@@ -1,8 +1,10 @@
 <template>
 	<div class="md:flex">
-		<div v-if="$store.state.isSideNavOpen" class="w-[100vw] md:w-[27vw] lg:w-[22vw] xl:w-[16vw]">
-			<SideNav />
-		</div>
+		<transition name="move">
+      <div v-if="$store.state.isSideNavOpen" class="w-[100vw] md:w-[27vw] lg:w-[22vw] xl:w-[16vw]">
+        <SideNav />
+      </div>
+    </transition>
 		<div class="md:w-[73vw] lg:w-[78vw] xl:w-[84vw]">
 			<h1 class="text-xl font-bold my-6">Ajouter un livre</h1>
 			<form>
@@ -115,5 +117,18 @@ export default {
 </script>
 
 <style>
+	.move-enter-from {
+    transform: translateX(-200px);
+    opacity: 0.3;
+	}
 
+	.move-enter-active {
+		transition: all 0.3s linear;
+	}
+
+	.move-leave-to {
+		transition: all 0.3s linear;
+    transform: translateX(-200px);
+    opacity: 0.3;
+  }
 </style>

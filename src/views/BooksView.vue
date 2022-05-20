@@ -1,9 +1,11 @@
 <template>
 	  <div class="md:flex">
-    <div v-if="$store.state.isSideNavOpen" class="w-[100vw] md:w-[27vw] lg:w-[22vw] xl:w-[16vw]">
-      <SideNav />
-    </div>
-		<div :class="page_width">
+    <transition name="move">
+      <div v-if="$store.state.isSideNavOpen" class="w-[100vw] md:w-[27vw] lg:w-[22vw] xl:w-[16vw]">
+        <SideNav />
+      </div>
+    </transition>
+		<div class="container mx-auto">
 			<input
 				type="search"
 				placeholder="Rechercher un livre..."
@@ -11,7 +13,7 @@
 				v-model="search"
 				/>
 			
-			<div class="lg:flex justify-between">
+			<div class="lg:flex">
 				<TypeFilters :currentType="currentType" @type-selected="selectType"/>
 
 				<div class="grid grid-cols-1 lg:grid-cols-2">
@@ -38,11 +40,6 @@ export default {
 		Book,
 		TypeFilters
 	},
-	computed: {
-    page_width() {
-      return { 'md:w-[73vw] lg:w-[78vw] xl:w-[84vw]':  this.$store.state.isSideNavOpen, 'w-[100vw]': !this.$store.state.isSideNavOpen }
-    }
-  },
 	setup() {
 
 		const books = ref([
@@ -90,10 +87,25 @@ export default {
 
 <style>
 	.list-enter-active {
-		transition: all 0.4s ease;
+		transition: all 0.6s ease;
 	}
 	.list-enter-from {
 		opacity: 0;
 		transform: translateX(30px);
 	}
+
+	.move-enter-from {
+    transform: translateX(-200px);
+    opacity: 0.3;
+	}
+
+	.move-enter-active {
+		transition: all 0.3s linear;
+	}
+
+	.move-leave-to {
+		transition: all 0.3s linear;
+    transform: translateX(-200px);
+    opacity: 0.3;
+  }
 </style>
