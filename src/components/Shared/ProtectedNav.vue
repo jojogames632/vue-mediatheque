@@ -29,9 +29,3 @@ export default {
 	}
 }
 </script>
-
-<style>
-	.book-background {
-		background-image: url('../../assets/img/book-image.jpg');
-	}
-</style>

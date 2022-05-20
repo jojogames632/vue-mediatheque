@@ -36,7 +36,7 @@ export default {
     page_width() {
       return { 'md:w-[73vw] lg:w-[78vw] xl:w-[84vw]':  this.$store.state.isSideNavOpen, 'w-[100vw]': !this.$store.state.isSideNavOpen }
     }
-  }
+  },
 }
 </script>
 <style>

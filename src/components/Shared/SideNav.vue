@@ -28,8 +28,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 	.router-link-exact-active {
 		background: #D9F99D;
+	}
+	.book-background {
+		background-image: url('../../assets/img/book-image.jpg');
 	}
 </style>

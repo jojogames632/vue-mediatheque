@@ -5,7 +5,7 @@
         <SideNav />
       </div>
     </transition>
-		<div class="container mx-auto">
+		<div :class="page_width">
 			<input
 				type="search"
 				placeholder="Rechercher un livre..."
@@ -16,13 +16,12 @@
 			<div class="lg:flex">
 				<TypeFilters :currentType="currentType" @type-selected="selectType"/>
 
-				<div class="grid grid-cols-1 lg:grid-cols-2">
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
 					<transition-group name="list">
 						<Book v-for="book in filteredBooks" :key="book.id" :book="book" />
 					</transition-group>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </template>
@@ -40,6 +39,11 @@ export default {
 		Book,
 		TypeFilters
 	},
+	computed: {
+    page_width() {
+      return { 'md:w-[73vw] lg:w-[78vw] xl:w-[84vw]':  this.$store.state.isSideNavOpen, 'w-[100vw]': !this.$store.state.isSideNavOpen }
+    }
+  },
 	setup() {
 
 		const books = ref([
