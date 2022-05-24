@@ -23,7 +23,7 @@
 
 					<button
 						type="submit"
-						class="w-full text-center py-3 rounded text-white focus:outline-none my-1 bg-green-300"
+						class="w-full text-center py-3 rounded focus:outline-none my-1 bg-lime-200"
 					>
 						Connexion
 					</button>
@@ -42,14 +42,12 @@
 <script>
 
 export default {
-	components: {
-
-	},
+	name: "Login",
 	data() {
 		return {
 			schema: {
-				email: 'required|min:3|max:100|email',
-				password: 'required|min:6|max:100|alpha_spaces',
+				email: 'required|email',
+				password: 'required|min:6|max:32',
 			},
 		}
 	},

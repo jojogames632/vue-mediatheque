@@ -12,7 +12,7 @@ export default createStore({
     }
   },
   actions: {
-    toggleSidenav({ commit }) {
+    toggleSideNav({ commit }) {
       commit('TOGGLE_SIDENAV')
     }
   },

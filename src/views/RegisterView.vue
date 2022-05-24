@@ -56,10 +56,7 @@
 <script>
 
 export default {
-	name: "Login",
-	components: { 
-
-	},
+	name: "Register",
 	data() {
 		return {
 			schema: {

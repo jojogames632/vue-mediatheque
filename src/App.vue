@@ -18,7 +18,7 @@ export default {
     Footer
   },
   setup() {
-    const isLoggedIn = ref(false)
+    const isLoggedIn = ref(true)
     const componentName = computed(() => {
       return isLoggedIn.value ? ProtectedNav : PublicNav
     })
