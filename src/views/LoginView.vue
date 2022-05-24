@@ -1,13 +1,32 @@
 <template>
 	<div class="mt-12">
 		<div class="container max-w-sm mx-auto flex flex-col items-center justify-center px-2">
-			<form @submit.prevent="submit" class="bg-white px-6 py-8 rounded shadow-md w-96">
+			<vee-form 
+				@submit="login" 
+				:validation-schema="schema" 
+				class="bg-white px-6 py-8 rounded shadow-md w-96"
+			>
 				<h1 class="mb-8 text-3xl text-center">Connexion</h1>
+					<vee-field 
+						type="text"
+						class="block border border-grey-light w-full p-3 rounded mb-4 border-l-8"
+						name="email"
+						placeholder="Email" />
+					<ErrorMessage class="text-red-600" name="email" />
 
-				<EmailInput :email="email" :emailVerif="emailVerif" />
-				<PasswordInput :password="password" :passwordVerif="passwordVerif" />
+					<vee-field 
+						type="password"
+						class="block border border-grey-light w-full p-3 rounded mb-4 border-l-8"
+						name="password"
+						placeholder="Mot de passe" />
+					<ErrorMessage class="text-red-600" name="password" />
 
-				<SubmitButton :isFormValid="isFormValid" :label="'Connexion'" />
+					<button
+						type="submit"
+						class="w-full text-center py-3 rounded text-white focus:outline-none my-1 bg-green-300"
+					>
+						Connexion
+					</button>
 
 				<div class="mt-6">Pas de compte ?
 					<router-link :to="{ name: 'register' }" class="no-underline border-b border-green-500 text-green-500">
@@ -15,80 +34,30 @@
 					</router-link>.
 				</div>
 
-			</form>
+			</vee-form>
 		</div>
 	</div>
 </template>
 
 <script>
-import { ref } from '@vue/reactivity'
-import { computed } from '@vue/runtime-core'
-import EmailInput from '../components/Shared/EmailInput.vue'
-import PasswordInput from '../components/Shared/PasswordInput.vue'
-import SubmitButton from '../components/Shared/SubmitButton.vue'
-import router from '@/router'
 
 export default {
 	components: {
-		EmailInput,
-		PasswordInput,
-		SubmitButton
+
 	},
-	setup() {
-		const email = ref({
-			value: '',
-			dirty: false,
-			error: ''
-		})
-
-		const password = ref({
-			value: '',
-			dirty: false,
-			error: ''
-		})
-
-		const isFormValid = computed(() => (!email.value.error && !password.value.error
-										 									&& email.value.dirty && password.value.dirty))
-
-		const emailVerif = () => {
-			let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-			if (!email.value.value) { 
-				email.value.error = 'L\'adresse email est requise'
-			}
-			else if (!email.value.value.match(regexEmail)) {
-				email.value.error = 'L\'adresse email n\'est pas valide'
-			}
-			else {
-				email.value.error = ''
-			}
-			email.value.dirty = true
+	data() {
+		return {
+			schema: {
+				email: 'required|min:3|max:100|email',
+				password: 'required|min:6|max:100|alpha_spaces',
+			},
 		}
-
-		const passwordVerif = () => {
-			if (password.value.value.length < 6) { 
-				password.value.error = 'Le mot de passe doit contenir 6 caractères minimum'
-			}
-			else {
-				password.value.error = ''
-			}
-			password.value.dirty = true
+	},
+	methods: {
+		login() {
+			console.log('login in');
 		}
-
-		const submit = () => {
-			if (isFormValid) {
-				router.push('/')
-			}
-		}
-
-		return { 
-			email, 
-			password, 
-			isFormValid,
-			emailVerif,
-			passwordVerif,
-			submit,
-		}
-	}
+	},
 }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <component :is="componentName"></component>
-  <router-view/>
+  <router-view class="font-[Montserrat]"/>
   <Footer />
 </template>
 
@@ -18,7 +18,7 @@ export default {
     Footer
   },
   setup() {
-    const isLoggedIn = ref(true)
+    const isLoggedIn = ref(false)
     const componentName = computed(() => {
       return isLoggedIn.value ? ProtectedNav : PublicNav
     })
