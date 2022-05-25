@@ -66,20 +66,29 @@ export default {
 			},
 			reg_in_submission: false,
 			reg_show_alert: false,
-			reg_alert_variant: 'bg-blue-500',
+			reg_alert_variant: 'bg-blue-300',
 			reg_alert_msg: 'Patientez, création de votre compte...',
 		}
 	},
 	methods: {
-		register(values) {
+		async register(values) {
 			this.reg_show_alert = true;
 			this.reg_in_submission = true;
-			this.reg_alert_variant = 'bg-blue-500';
+			this.reg_alert_variant = 'bg-blue-300';
 			this.reg_alert_msg = 'Patientez, création de votre compte...';
+
+			try {
+				await this.$store.dispatch('register', values);
+			} catch (error) {
+				this.reg_in_submission = false;
+				this.reg_alert_variant = 'bg-red-300';
+				this.reg_alert_msg = 'Une erreur s\'est produite. Réessayez dans un instant';
+				return;
+			}
 
 			this.reg_alert_variant = 'bg-lime-200';
 			this.reg_alert_msg = 'Succès ! Votre compte a bien été créé.';
-			console.log(values);
+			console.log(userCred);
 		},
 	},
 }

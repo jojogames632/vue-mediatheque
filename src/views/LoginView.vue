@@ -1,6 +1,12 @@
 <template>
 	<div class="mt-12">
 		<div class="container max-w-sm mx-auto flex flex-col items-center justify-center px-2">
+			<div 
+				class="text-center font-bold p-4 mb-4" 
+				v-if="login_show_alert"
+				:class="login_alert_variant">
+				{{ login_alert_msg }}
+			</div>
 			<vee-form 
 				@submit="login" 
 				:validation-schema="schema" 
@@ -22,8 +28,9 @@
 					<ErrorMessage class="text-red-600" name="password" />
 
 					<button
-						type="submit"
+						type="submit" :disabled="login_in_submission"
 						class="w-full text-center py-3 rounded focus:outline-none my-1 bg-lime-200"
+						:class="{ 'bg-gray-200': login_in_submission }"
 					>
 						Connexion
 					</button>
@@ -49,11 +56,22 @@ export default {
 				email: 'required|email',
 				password: 'required|min:6|max:32',
 			},
+			login_in_submission: false,
+			login_show_alert: false,
+			login_alert_variant: 'bg-blue-300',
+			login_alert_msg: 'Connexion en cours...',
 		}
 	},
 	methods: {
-		login() {
-			console.log('login in');
+		login(values) {
+			this.login_show_alert = true;
+			this.login_in_submission = true;
+			this.login_alert_variant = 'bg-blue-300';
+			this.login_alert_msg = 'Patientez, connexion en cours...';
+
+			this.login_alert_variant = 'bg-lime-200';
+			this.login_alert_msg = 'Succès ! Vous êtes connecté.';
+			console.log(values);
 		}
 	},
 }
