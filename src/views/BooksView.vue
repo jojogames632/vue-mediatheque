@@ -28,10 +28,13 @@
 
 <script>
 import { ref } from '@vue/reactivity'
-import { computed } from '@vue/runtime-core'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+import { computed, onMounted } from '@vue/runtime-core'
 import SideNav from '../components/Shared/SideNav.vue'
 import Book from '../components/Shared/Book.vue'
 import TypeFilters from '../components/Shared/TypeFilters.vue'
+import axios from 'axios'
 
 export default {
 	components: {
@@ -39,23 +42,40 @@ export default {
 		Book,
 		TypeFilters
 	},
-	computed: {
-    page_width() {
-      return { 'md:w-[73vw] lg:w-[78vw] xl:w-[84vw]':  this.$store.state.isSideNavOpen, 'w-[100vw]': !this.$store.state.isSideNavOpen }
-    }
-  },
 	setup() {
 
-		const books = ref([
-			{id: 1, title: 'Pouvoir illimité', author: 'Anthony Robbins', pageNumber: 512, type: 'Développement personnel', image: 'pouvoir-illimite.jpg'},
-			{id: 2, title: 'Pouvoir illimité', author: 'Anthony Robbins', pageNumber: 512, type: 'Spiritualité', image: 'pouvoir-illimite.jpg'},
-			{id: 3, title: 'Pouvoir illimité', author: 'Anthony Robbins', pageNumber: 512, type: 'Développement personnel', image: 'pouvoir-illimite.jpg'},
-			{id: 4, title: 'Pouvoir illimité', author: 'Anthony Robbins', pageNumber: 512, type: 'Développement personnel', image: 'pouvoir-illimite.jpg'},
-			{id: 5, title: 'Pouvoir illimité', author: 'Anthony Robbins', pageNumber: 512, type: 'Productivité', image: 'pouvoir-illimite.jpg'},
-			{id: 6, title: 'Pouvoir illimité', author: 'Anthony Robbins', pageNumber: 512, type: 'Productivité', image: 'pouvoir-illimite.jpg'},
-		])
+		const store = useStore()
+		const router = useRouter()
+
+		const instance = axios.create({
+			baseURL: 'http://localhost:3000/api'
+		})
+
+		const books = ref([])
+
+		onMounted(() => {
+			if (store.state.user.id == -1) {
+				router.push('/login')
+				return
+			}
+
+			instance.defaults.headers.common['Authorization'] = store.state.user.token
+
+			instance.get('/books')
+			.then(res => {
+				books.value = res.data.data
+			})
+			.catch(error => {
+				console.log(error)				
+			})
+		})
+
 		const search = ref('')
 		const currentType = ref('')
+
+		const page_width = () => {
+      return { 'md:w-[73vw] lg:w-[78vw] xl:w-[84vw]':  this.$store.state.isSideNavOpen, 'w-[100vw]': !this.$store.state.isSideNavOpen }
+    }
 
 		const filteredBooks = computed(() => {
 			if (currentType.value === '') {
@@ -84,7 +104,7 @@ export default {
 			currentType.value = type === currentType.value ? '' : type
 		}
 
-		return { search, currentType, books, filteredBooks, selectType }
+		return { search, currentType, books, filteredBooks, page_width, selectType }
 	}
 }
 </script>

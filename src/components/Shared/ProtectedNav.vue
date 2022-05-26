@@ -7,7 +7,7 @@
 		<div class="flex-1 flex justify-between text-left">
 			{{ email }}
 			<div>
-				<router-link to="">Déconnexion</router-link>
+				<span class="hover:cursor-pointer" @click="logout">Déconnexion</span>
 			</div>
 		</div>
   </nav>
@@ -18,7 +18,11 @@ import { mapMutations } from 'vuex'
 
 export default {
 	methods: {
-		...mapMutations(['toggleSideNav'])
+		...mapMutations(['toggleSideNav']),
+		logout() {
+			this.$store.commit('logout')
+			this.$router.push('/login')
+		}
 	},
 	computed: {
 		email() {

@@ -3,7 +3,7 @@
 		<h2 class="font-bold my-4">{{ book.title }}</h2>
 		<div class="flex w-96 lg:w-[33vw] xl:w-[35vw] 2xl:w-[35vw] lg:p-6 xl:px-12">
 			<div>
-				<img :src="require(`@/assets/img/${book.image}`)" alt="book image" class="h-60 lg:h-32 xl:h-40 2xl:h-60 object-contain" />
+				<img :src="book.image" alt="book image" class="h-60 lg:h-32 xl:h-40 2xl:h-60 object-contain" />
 			</div>
 			<div class="flex flex-col text-left justify-between ml-3 lg:text-sm w-52">
 				<p>{{ book.author }}</p>
