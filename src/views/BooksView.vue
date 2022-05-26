@@ -11,7 +11,7 @@
 				placeholder="Rechercher un livre..."
 				class="border border-gray-300 rounded mt-6 text-center"
 				v-model="search"
-				/>
+			/>
 			
 			<div class="lg:flex">
 				<TypeFilters :currentType="currentType" @type-selected="selectType"/>
