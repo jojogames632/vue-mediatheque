@@ -18,17 +18,17 @@ const routes = [
     component: () => import(/* webpackChunkName: "login" */ '../views/LoginView.vue')
   },
   {
-    path: '/api/books',
+    path: '/books',
     name: 'books',
     component: () => import(/* webpackChunkName: "login" */ '../views/BooksView.vue')
   },
   {
-    path: '/api/add-book',
+    path: '/add-book',
     name: 'add-book',
     component: () => import(/* webpackChunkName: "login" */ '../views/AddBookView.vue')
   },
   {
-    path: '/api/profil',
+    path: '/profil',
     name: 'profil',
     component: () => import(/* webpackChunkName: "login" */ '../views/ProfilView.vue')
   },

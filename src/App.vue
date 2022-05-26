@@ -8,8 +8,6 @@
 import PublicNav from './components/Shared/PublicNav.vue'
 import ProtectedNav from './components/Shared/ProtectedNav.vue'
 import Footer from './components/Shared/Footer.vue'
-import { ref } from '@vue/reactivity'
-import { computed } from '@vue/runtime-core'
 
 export default {
   components: {
@@ -17,14 +15,11 @@ export default {
     ProtectedNav,
     Footer
   },
-  setup() {
-    const isLoggedIn = ref(true)
-    const componentName = computed(() => {
-      return isLoggedIn.value ? ProtectedNav : PublicNav
-    })
-
-    return { isLoggedIn, componentName }
-  }
+  computed: {
+    componentName() {
+      return this.$store.state.user.id > 0 ? ProtectedNav : PublicNav
+    },
+  },
 }
 </script>
 

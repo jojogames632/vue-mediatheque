@@ -1,7 +1,7 @@
 <template>
-  <div class="mt-12">
+  <div class="mt-[65px]">
 		<div class="container max-w-sm mx-auto flex flex-col items-center justify-center px-2">
-			<div class="text-center rounded font-bold p-5 mb-4" 
+			<div class="text-center rounded font-bold p-5 mb-4 mt-6" 
 				v-if="reg_show_alert"
 				:class="reg_alert_variant">
 				{{ reg_alert_msg }}
@@ -10,6 +10,7 @@
 				@submit="register" 
 				:validation-schema="schema"
 				class="bg-white px-6 py-8 rounded shadow-md w-96"
+				:class="{ 'mt-12': !reg_show_alert }"
 			>
 				<h1 class="mb-8 text-3xl text-center">Inscription</h1>
 					<vee-field 
@@ -71,24 +72,24 @@ export default {
 		}
 	},
 	methods: {
-		async register(values) {
+		register(values) {
 			this.reg_show_alert = true;
 			this.reg_in_submission = true;
 			this.reg_alert_variant = 'bg-blue-300';
 			this.reg_alert_msg = 'Patientez, création de votre compte...';
 
-			try {
-				await this.$store.dispatch('register', values);
-			} catch (error) {
+			this.$store.dispatch('register', values)
+			.then(_ => {
+				this.reg_alert_variant = 'bg-lime-200';
+				this.reg_alert_msg = 'Succès ! Votre compte a bien été créé.';
+				this.$router.push('/books')
+			})
+			.catch(error => {
 				this.reg_in_submission = false;
 				this.reg_alert_variant = 'bg-red-300';
-				this.reg_alert_msg = 'Une erreur s\'est produite. Réessayez dans un instant';
+				this.reg_alert_msg = error.response.data.message;
 				return;
-			}
-
-			this.reg_alert_variant = 'bg-lime-200';
-			this.reg_alert_msg = 'Succès ! Votre compte a bien été créé.';
-			console.log(userCred);
+			})
 		},
 	},
 }

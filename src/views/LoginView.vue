@@ -1,8 +1,8 @@
 <template>
-	<div class="mt-12">
+	<div class="mt-[65px]">
 		<div class="container max-w-sm mx-auto flex flex-col items-center justify-center px-2">
 			<div 
-				class="text-center font-bold p-4 mb-4" 
+				class="text-center font-bold p-4 mb-4 mt-6" 
 				v-if="login_show_alert"
 				:class="login_alert_variant">
 				{{ login_alert_msg }}
@@ -11,6 +11,7 @@
 				@submit="login" 
 				:validation-schema="schema" 
 				class="bg-white px-6 py-8 rounded shadow-md w-96"
+				:class="{ 'mt-12': !login_show_alert }"
 			>
 				<h1 class="mb-8 text-3xl text-center">Connexion</h1>
 					<vee-field 
@@ -69,9 +70,19 @@ export default {
 			this.login_alert_variant = 'bg-blue-300';
 			this.login_alert_msg = 'Patientez, connexion en cours...';
 
-			this.login_alert_variant = 'bg-lime-200';
-			this.login_alert_msg = 'Succès ! Vous êtes connecté.';
-			console.log(values);
+			this.$store.dispatch('login', values)
+			.then(_ => {
+				this.login_alert_variant = 'bg-lime-200';
+				this.login_alert_msg = 'Succès ! Vous êtes connecté.';
+				this.$router.push('/books')
+			})
+			.catch(error => {
+				this.login_in_submission = false;
+				this.login_alert_variant = 'bg-red-300';
+				console.log(error)
+				this.login_alert_msg = error.response.data.message;
+				return;
+			})
 		}
 	},
 }
