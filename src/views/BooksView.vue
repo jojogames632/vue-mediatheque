@@ -1,26 +1,27 @@
 <template>
 	  <div class="md:flex mt-[65px]">
-    <transition name="move">
-      <div v-if="$store.state.isSideNavOpen" class="w-[100vw] md:w-[27vw] lg:w-[22vw] xl:w-[16vw]">
-        <SideNav />
-      </div>
-    </transition>
-		<div :class="page_width">
-			<input
-				type="search"
-				placeholder="Rechercher un livre..."
-				class="border border-gray-300 rounded mt-6 text-center"
-				v-model="search"
-			/>
+			<transition name="move">
+				<div v-if="$store.state.isSideNavOpen" class="w-[100vw] md:w-[27vw] lg:w-[22vw] xl:w-[16vw]">
+					<SideNav />
+				</div>
+			</transition>
+			<div :class="page_width">
+				<input
+					type="search"
+					placeholder="Rechercher un livre..."
+					class="border border-gray-300 rounded mt-6 text-center"
+					v-model="search"
+				/>
 			
-			<div class="lg:flex">
+			<div class="lg:flex w-full">
 				<TypeFilters :currentType="currentType" @type-selected="selectType"/>
 
-				<div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
+				<div v-if="filteredBooks.length" class="grid grid-cols-1 lg:grid-cols-2 gap-3">
 					<transition-group name="list">
 						<Book v-for="book in filteredBooks" :key="book.id" :book="book" />
 					</transition-group>
 				</div>
+				<div v-else class="mt-40 text-center w-full">{{ bookMessage }}</div>
 			</div>
 		</div>
 	</div>
@@ -52,6 +53,7 @@ export default {
 		})
 
 		const books = ref([])
+		const bookMessage = ref('Aucun livre ne correspond à votre recherche')
 
 		onMounted(() => {
 			if (store.state.user.id == -1) {
@@ -66,16 +68,16 @@ export default {
 				books.value = res.data.data
 			})
 			.catch(error => {
-				console.log(error)				
+				bookMessage.value = '😵 Impossible de charger les livres depuis l\'API 😵'				
 			})
 		})
 
 		const search = ref('')
 		const currentType = ref('')
 
-		const page_width = () => {
-      return { 'md:w-[73vw] lg:w-[78vw] xl:w-[84vw]':  this.$store.state.isSideNavOpen, 'w-[100vw]': !this.$store.state.isSideNavOpen }
-    }
+		const page_width = computed(() => {
+      return { 'md:w-[73vw] lg:w-[78vw] xl:w-[84vw]': store.state.isSideNavOpen, 'w-[100vw]': !store.state.isSideNavOpen }
+    })
 
 		const filteredBooks = computed(() => {
 			if (currentType.value === '') {
@@ -104,7 +106,7 @@ export default {
 			currentType.value = type === currentType.value ? '' : type
 		}
 
-		return { search, currentType, books, filteredBooks, page_width, selectType }
+		return { search, currentType, books, bookMessage, filteredBooks, page_width, selectType }
 	}
 }
 </script>
@@ -115,7 +117,7 @@ export default {
 	}
 	.list-enter-from {
 		opacity: 0;
-		transform: translateX(30px);
+		transform: translateX(50px);
 	}
 
 	.move-enter-from {

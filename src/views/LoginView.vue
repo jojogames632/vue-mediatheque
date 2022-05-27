@@ -51,6 +51,11 @@
 
 export default {
 	name: "Login",
+	mounted() {
+		if (this.$store.state.user.id != -1) {
+			this.$router.replace('/books')
+		}
+	},
 	data() {
 		return {
 			schema: {

@@ -40,6 +40,7 @@ export default createStore({
       state.isSideNavOpen = !state.isSideNavOpen;
     },
     logout(state) {
+      localStorage.removeItem('user')
       state.user = defaultUser
     }
   },
