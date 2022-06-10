@@ -84,7 +84,6 @@ export default {
 			.catch(error => {
 				this.login_in_submission = false;
 				this.login_alert_variant = 'bg-red-300';
-				console.log(error)
 				this.login_alert_msg = error.response.data.message;
 				return;
 			})

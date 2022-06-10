@@ -1,5 +1,5 @@
 <template>
-  <div class="md:flex mt-[65px]">
+  <div class="h-full mt-[65px] md:flex">
     <transition name="move">
       <div v-if="$store.state.isSideNavOpen" class="w-[100vw] md:w-[27vw] lg:w-[22vw] xl:w-[16vw]">
         <SideNav />

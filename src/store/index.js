@@ -1,8 +1,5 @@
 import { createStore } from 'vuex'
-const axios = require('axios');
-const instance = axios.create({
-  baseURL: 'http://localhost:3000/api'
-})
+import axiosInstance from '../services/api'
 
 let defaultUser = {
   id: -1,
@@ -13,11 +10,11 @@ let defaultUser = {
 let user = localStorage.getItem('user')
 if (!user) {
   user = defaultUser
-} 
+}
 else {
   try {
     user = JSON.parse(user)
-    instance.defaults.headers.common['Authorization'] = user.token
+    axiosInstance.defaults.headers.common['Authorization'] = user.token
   } catch (err) {
     user = defaultUser
   }
@@ -32,7 +29,7 @@ export default createStore({
   },
   mutations: {
     logUser(state, user) {
-      instance.defaults.headers.common['Authorization'] = user.token
+      axiosInstance.defaults.headers.common['Authorization'] = user.token
       localStorage.setItem('user', JSON.stringify(user))
       state.user = user
     },
@@ -47,7 +44,7 @@ export default createStore({
   actions: {
     login({ commit }, userInfos) {
       return new Promise((resolve, reject) => {
-        instance.post('/login', userInfos)
+        axiosInstance.post('/login', userInfos)
         .then(res => {
           commit('logUser', {
             id: res.data.data.id, 
@@ -61,7 +58,7 @@ export default createStore({
     },
     register({ commit }, userInfos) {
       return new Promise((resolve, reject) => {
-        instance.post('/register', userInfos)
+        axiosInstance.post('/register', userInfos)
         .then(res => {
           commit('logUser', {
             id: res.data.data.id,

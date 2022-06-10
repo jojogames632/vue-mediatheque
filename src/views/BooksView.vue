@@ -1,5 +1,5 @@
 <template>
-	  <div class="md:flex mt-[65px]">
+	  <div class="h-full mt-[65px] md:flex">
 			<transition name="move">
 				<div v-if="$store.state.isSideNavOpen" class="w-[100vw] md:w-[27vw] lg:w-[22vw] xl:w-[16vw]">
 					<SideNav />
@@ -35,7 +35,7 @@ import { computed, onMounted } from '@vue/runtime-core'
 import SideNav from '../components/Shared/SideNav.vue'
 import Book from '../components/Shared/Book.vue'
 import TypeFilters from '../components/Shared/TypeFilters.vue'
-import axios from 'axios'
+import axiosInstance from '../services/api'
 
 export default {
 	components: {
@@ -48,10 +48,6 @@ export default {
 		const store = useStore()
 		const router = useRouter()
 
-		const instance = axios.create({
-			baseURL: 'http://localhost:3000/api'
-		})
-
 		const books = ref([])
 		const bookMessage = ref('Aucun livre ne correspond à votre recherche')
 
@@ -61,13 +57,13 @@ export default {
 				return
 			}
 
-			instance.defaults.headers.common['Authorization'] = store.state.user.token
+			axiosInstance.defaults.headers.common['Authorization'] = store.state.user.token
 
-			instance.get('/books')
+			axiosInstance.get('/books')
 			.then(res => {
 				books.value = res.data.data
 			})
-			.catch(error => {
+			.catch(_ => {
 				bookMessage.value = '😵 Impossible de charger les livres depuis l\'API 😵'				
 			})
 		})
