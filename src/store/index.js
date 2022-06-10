@@ -4,7 +4,8 @@ import axiosInstance from '../services/api'
 let defaultUser = {
   id: -1,
   email: '',
-  token: ''
+  token: '',
+  avatar: '',
 }
 
 let user = localStorage.getItem('user')
@@ -49,7 +50,8 @@ export default createStore({
           commit('logUser', {
             id: res.data.data.id, 
             email: res.data.data.email, 
-            token: 'Bearer ' + res.data.token
+            token: 'Bearer ' + res.data.token,
+            avatar: res.data.data.avatar
           })
           resolve(res)
         })

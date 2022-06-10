@@ -49,7 +49,7 @@ export default {
 
 				const message = messages[ctx.rule.name] 
 					? messages[ctx.rule.name] 
-					: `Le champs ${ctx.field} est invalid.`;
+					: `Le champs ${ctx.field} est invalide.`;
 
 				return message;
 			},

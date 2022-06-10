@@ -5,10 +5,11 @@
 		</div>
 		<div class="flex-1 text-left hidden md:block">Médiathèque</div>
 		<div class="flex-1 flex justify-between text-left">
-			{{ email }}
-			<div>
-				<span class="hover:cursor-pointer" @click="logout">Déconnexion</span>
+			<div class="flex">
+				<img :src="avatar" alt="avatar" class="w-6 rounded-full mr-4" />
+				{{ email }}
 			</div>
+			<span class="hover:cursor-pointer" @click="logout">Déconnexion</span>
 		</div>
   </nav>
 </template>
@@ -27,6 +28,9 @@ export default {
 	computed: {
 		email() {
 			return this.$store.state.user.email
+		},
+		avatar() {
+			return this.$store.state.user.avatar
 		}
 	}
 }

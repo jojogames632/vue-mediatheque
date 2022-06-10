@@ -76,12 +76,29 @@
 import { ref } from '@vue/reactivity'
 import SideNav from '../components/Shared/SideNav.vue'
 import axiosInstance from '../services/api'
+import { computed, onMounted } from '@vue/runtime-core'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 export default {
 	components: {
 		SideNav,
 	},
 	setup() {
+		const store = useStore()
+		const router = useRouter()
+
+		const userId = computed(() => {
+			return store.state.user.id
+		})
+
+		onMounted(() => {
+			if (userId == -1) {
+				router.push('/login')
+				return
+			}
+		})
+
 		const types = ref([
 			'Développement personnel',
 			'Spiritualité',
@@ -116,6 +133,7 @@ export default {
 			schema,
 			alert_msg,
 			alert_msg_color,
+			userId,
 			addBook,
 		}
 	}

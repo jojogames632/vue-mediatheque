@@ -51,8 +51,12 @@ export default {
 		const books = ref([])
 		const bookMessage = ref('Aucun livre ne correspond à votre recherche')
 
+		const user = computed(() => {
+			return store.state.user
+		})
+
 		onMounted(() => {
-			if (store.state.user.id == -1) {
+			if (user.id == -1) {
 				router.push('/login')
 				return
 			}
